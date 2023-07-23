@@ -73,7 +73,7 @@ export default function Nav() {
       {/* Mobile Nav */}
 
       <div className="sm:hidden flex relative">
-        {session?.user  ? (
+        {session?.user ? (
           <div className="flex">
             <Image
               src={session?.user.image}
@@ -81,7 +81,7 @@ export default function Nav() {
               height={37}
               className="rounded-full"
               alt="profile"
-              onClick={() => setToggleDropdown(prev => !prev)} 
+              onClick={() => setToggleDropdown(prev => !prev)}
             />
             {toggleDropdown && (
               <div className="dropdown">
