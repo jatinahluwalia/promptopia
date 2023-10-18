@@ -41,7 +41,7 @@ export default function Nav() {
             <Link href="/create-prompt" className="black_btn">
               Create Post
             </Link>
-            <button type="button" className="outline_btn">
+            <button type="button" className="outline_btn" onClick={signOut}>
               Sign Out
             </button>
             <Link href="/profile">
