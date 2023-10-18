@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import PromptCard from "./PromptCard"
+import { useState, useEffect } from "react";
+import PromptCard from "./PromptCard";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -14,34 +14,38 @@ const PromptCardList = ({ data, handleTagClick }) => {
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default function Feed() {
-  const [searchText, setSearchText] = useState('')
-  const [posts, setPosts] = useState([])
-  const [filteredPosts, setFilteredPosts] = useState([])
+  const [searchText, setSearchText] = useState("");
+  const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   const handleTagClick = (post) => {
-    setSearchText(post.tag)
-  }
+    setSearchText(post.tag);
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch("/api/prompt")
-      const data = await res.json()
-      setPosts(data)
-      setFilteredPosts(data)
-    }
+      const res = await fetch("/api/prompt");
+      const data = await res.json();
+      setPosts(data);
+      setFilteredPosts(data);
+    };
 
-    fetchPosts()
-  }, [])
+    fetchPosts();
+  }, []);
 
   useEffect(() => {
-    setFilteredPosts(posts.filter((post) => {
-      return (JSON.stringify(Object.values(post))).includes(searchText)
-    }))
-  }, [searchText])
+    setFilteredPosts(
+      posts.filter((post) => {
+        return JSON.stringify(Object.values(post))
+          .toLowerCase()
+          .includes(searchText.toLowerCase());
+      }),
+    );
+  }, [searchText]);
 
   return (
     <section className="feed">
@@ -56,9 +60,9 @@ export default function Feed() {
         />
       </form>
       <PromptCardList
-        data={filteredPosts}
+        data={searchText ? filteredPosts : posts}
         handleTagClick={handleTagClick}
       />
     </section>
-  )
+  );
 }
